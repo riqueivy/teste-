@@ -1,0 +1,45 @@
+create database frequencia_bd;
+show databases;
+use frequencia_bd;
+
+create table administraçao(
+id_adm int not null primary key,
+senha int not null,
+login varchar(30) not null
+);
+
+create table frequencia(
+id_frequencia varchar(20) primary key,
+status_fr varchar(10) not null,
+hora time not null,
+data_fr date not null,
+foreign key (fk_matricula) references aluno(matricula)
+);
+
+create table aluno(
+matricula int primary key,
+nome varchar(45) not null,
+num_chamada int not null,
+localidade varchar(45) not null,
+qrcode varchar(120) not null 
+);
+
+create table resumo_frequencia(
+id_resumo_frequencia varchar(4) primary key,
+total_faltas int not null,
+total_atrasos int not null,
+total_presencas int not null,
+data_registro date not null,
+data_inicio_periodo date not null,
+tipo_periodo varchar(10) not null,
+ano_letivo year(4) not null,
+foreign key (fk_matricula) references aluno(matricula),
+foreign key (fk_turma) references turma(codigo_turma)
+);
+
+create table turma(
+codigo_turma varchar(2) primary key,
+ano_entrada year(4) not null,
+serie int not null,
+turma varchar(5) not null
+);
